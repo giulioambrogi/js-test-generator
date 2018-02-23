@@ -1,0 +1,32 @@
+.App {
+  text-align: left;
+  padding:30px;
+}
+
+.padded{
+
+}
+
+.padded input{
+  border:0px;
+  min-width: 10px;
+  display: block;
+}
+
+.padded.p1{
+  padding-left: 20px;
+}
+
+.padded.p2{
+  padding-left:40px;
+}
+
+.padded.p3{
+  padding-left:60px;
+}
+.padded.p4{
+  padding-left:80px;
+}
+.padded.p5{
+  padding-left:100px;
+}
