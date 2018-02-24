@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {group,groupMultiple} from './components/grouper'
+import {print} from './components/printer'
 import logo from './logo.svg';
 import './App.css';
 
@@ -8,8 +10,15 @@ class App extends Component {
     super(props)
     this.state = {
       lines: [{text:"ciao", pad:0},
-      {text:"come va??", pad:1}] 
+      {text:"come va??", pad:1},
+      {text:"bene", pad:2},
+      {text:"ok", pad:1}] ,
+      output:''
     }
+  }
+
+  componentDidMount(){
+    this.generate();
   }
 
   addLine(index){
@@ -81,11 +90,42 @@ class App extends Component {
     document.querySelectorAll('.row input')[targetIndex].focus();
   }
 
+  detectLineSets(lines){
+
+    if(lines.filter(x=>x.pad ==0 ).length <= 1){
+      return [lines]
+    }
+    const data = [...lines];
+    data.reverse();
+    let findIndex = data.findIndex(x=>x.pad ==0)
+    let sets = []
+    while(findIndex < (data.length-1) ){
+        const newTree = data.slice(0,findIndex+1).reverse();
+        sets.push(newTree);
+        data.splice(0, findIndex+1);
+        findIndex = data.findIndex(x=>x.pad ==0)
+    }
+  }
+
+  generate(){
+    this.setState({output:''}, ()=>{
+      const lines = [...this.state.lines].filter(l=>l.text!='')
+
+      const lineSets =[lines]// this.detectLineSets(lines);
+      const trees = groupMultiple(lineSets);
+      
+      const output = trees.map(print).join("\n\n");
+      this.setState({output});
+    })
+  }
+
   render() {
     return (
       <div className="App">
           <h1 className="App-title">BDD Editor</h1>
-          <button onClick={()=>this.setState({lines:[]})}>clear</button>
+          <button onClick={()=>this.setState({lines:[{text:"",pad:0}]})}>clear</button>
+          &nbsp;&nbsp;
+          <button onClick={()=>this.generate()}>Generate</button>
 
           <div className="container" style={{border:"2px solid grey", padding:"30px"}}>
               {this.state.lines.length == 0 && (
@@ -138,6 +178,15 @@ class App extends Component {
               
               
           </div>
+
+          {this.state.output != '' && <div>
+            <h2>Boilerplate</h2>
+            
+            <pre className="prettyprint" contentEditable style={{width:"100%"}} rows="15">
+              {this.state.output}
+            </pre>
+          </div>}
+          
       </div>
     );
   }

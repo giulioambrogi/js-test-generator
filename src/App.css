@@ -13,6 +13,17 @@
   display: block;
 }
 
+input{
+  width:100%;
+  overflow: hidden;
+  outline:none;
+}
+input:focus{
+  background:#d5f7e5;
+  border: none !important;
+  box-shadow: none;
+}
+
 .padded.p1{
   padding-left: 20px;
 }
