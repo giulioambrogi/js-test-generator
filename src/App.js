@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {group,groupMultiple} from './components/grouper'
 import {print} from './components/printer'
+import Options from './components/Options'
 import logo from './logo.svg';
 import './App.css';
 
@@ -33,17 +34,17 @@ class App extends Component {
 
   deleteLine(index){
     const newLines = [...this.state.lines.slice(0,index), ...this.state.lines.slice(index+1)];
-    if(newLines.length == 0 ){
+    if(newLines.length === 0 ){
       newLines.push({text:"", pad:0})
     }
     this.setState({lines:newLines}, ()=>{
       
-      document.querySelectorAll('.row input')[index == 0 ? 0 :index-1].focus();
+      document.querySelectorAll('.row input')[index === 0 ? 0 :index-1].focus();
     })
   }
   
   addTab(index){
-    if(index == 0 ){
+    if(index === 0 ){
       return; 
     }
     if(this.state.lines[index].pad>this.state.lines[index-1].pad){
@@ -61,7 +62,7 @@ class App extends Component {
   }
 
   removeTab(index){
-    if(this.state.lines[index].pad==0){
+    if(this.state.lines[index].pad===0){
       return;
     }
 
@@ -92,18 +93,18 @@ class App extends Component {
 
   detectLineSets(lines){
 
-    if(lines.filter(x=>x.pad ==0 ).length <= 1){
+    if(lines.filter(x=>x.pad ===0 ).length <= 1){
       return [lines]
     }
     const data = [...lines];
     data.reverse();
-    let findIndex = data.findIndex(x=>x.pad ==0)
+    let findIndex = data.findIndex(x=>x.pad ===0)
     let sets = []
     while(findIndex < (data.length-1) ){
         const newTree = data.slice(0,findIndex+1).reverse();
         sets.push(newTree);
         data.splice(0, findIndex+1);
-        findIndex = data.findIndex(x=>x.pad ==0)
+        findIndex = data.findIndex(x=>x.pad ===0)
     }
   }
 
@@ -123,12 +124,14 @@ class App extends Component {
     return (
       <div className="App">
           <h1 className="App-title">BDD Editor</h1>
-          <button onClick={()=>this.setState({lines:[{text:"",pad:0}]})}>clear</button>
-          &nbsp;&nbsp;
-          <button onClick={()=>this.generate()}>Generate</button>
-
+          <Options 
+            generateEnabled={this.state.lines.length>0}
+            onGenerate={this.generate.bind(this)} 
+            onOptionsChange={undefined} 
+            onClear={()=>this.setState({lines:[{text:"",pad:0}]})}
+          />
           <div className="container" style={{border:"2px solid grey", padding:"30px"}}>
-              {this.state.lines.length == 0 && (
+              {this.state.lines.length === 0 && (
                 <span onClick={()=>{
                   this.setState({lines:[{text:"a",pad:0 }]})
                 }}>+</span>
@@ -136,19 +139,19 @@ class App extends Component {
               {this.state.lines.map( (line,i)=>(
                 <div className={"row padded p"+line.pad}>
                   <input key={"line-"+i} contentEditable onKeyDown={event=>{
-                    console.log(event.keyCode," .......")
-                        if (event.keyCode == 13) {
+                       // console.log(event.keyCode," .......")
+                        if (event.keyCode === 13) {
                           //add new line
                           this.addLine(i);
                           event.preventDefault();
                         }
-                        if(event.keyCode == 9){
+                        if(event.keyCode === 9){
                           if(event.shiftKey){this.removeTab(i)}else{this.addTab(i)};
                           event.preventDefault();
                         }
 
-                        if(event.keyCode == 8){
-                          if(line.text == ""){
+                        if(event.keyCode === 8){
+                          if(line.text === ""){
                             console.log("DELETING",i)
                             this.deleteLine(i)
                             event.preventDefault();
@@ -156,15 +159,15 @@ class App extends Component {
                           console.log(line.text);
 
                         }
-                        if(event.keyCode == 38){
+                        if(event.keyCode === 38){
                           //up
-                          const newIndex = (i == 0 )? 0 : i-1;
+                          const newIndex = (i === 0 )? 0 : i-1;
                           this.updateFocus(newIndex);
                         }
 
-                        if(event.keyCode == 40){
+                        if(event.keyCode === 40){
                           //down
-                          const newIndex = (i == this.state.lines.length -1 )? i : i+1;
+                          const newIndex = (i === this.state.lines.length -1 )? i : i+1;
                           this.updateFocus(newIndex);
                         }
                   }} 
@@ -179,7 +182,7 @@ class App extends Component {
               
           </div>
 
-          {this.state.output != '' && <div>
+          {this.state.output !== '' && <div>
             <h2>Boilerplate</h2>
             
             <pre className="prettyprint" contentEditable style={{width:"100%"}} rows="15">

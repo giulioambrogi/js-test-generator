@@ -2,12 +2,12 @@ import dataTree from 'data-tree';
 
 //convertes flat list to tree
 
-function insertNode(node, targetNode = null){
-    if(targetNode == null){
-        return this.insert(node)
-    }
-    return this.insertToNode(node, targetNode);
-}
+// function insertNode(node, targetNode = null){
+//     if(targetNode == null){
+//         return this.insert(node)
+//     }
+//     return this.insertToNode(node, targetNode);
+// }
 
 function findParentForNextPad(lastInserted,currentPad){
     let cursor = lastInserted; //last inserted
@@ -37,7 +37,7 @@ export function group(data){
             // console.log(`Inserting inner child ${element.text} to element ${lastInserted.data().text}`)
             lastInserted = tree.insertToNode(lastInserted, element);
 
-        }else if(previousPad == element.pad){
+        }else if(previousPad === element.pad){
             
             const parent = lastInserted.parentNode();
             // console.log(`Inserting child ${element.text} to parent of last one ${parent.data().text}`)
