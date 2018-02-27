@@ -23,6 +23,9 @@ input:focus{
   border: none !important;
   box-shadow: none;
 }
+.CodeMirror-line:focus{
+  background:red;
+}
 
 .padded.p1{
   padding-left: 20px;
