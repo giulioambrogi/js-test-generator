@@ -7,6 +7,7 @@ import logo from './logo.svg';
 import './App.css';
 import style from 'codemirror/lib/codemirror.css';
 import CodeMirror from 'react-codemirror'
+import SplitPane from 'react-split-pane'
 
 const options = {lineNumbers: false,indentWithTabs:true, autoSave:true,styleActiveLine: true,};
         
@@ -78,7 +79,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <h1 className="App-title">BDD Editor</h1>
+          <h1 className="App-title">BDDs Editor</h1>
           <Options 
             generateEnabled={this.state.lines.length>0}
             onGenerate={this.generate.bind(this)} 
@@ -86,20 +87,28 @@ class App extends Component {
             onClear={()=>this.setState({lines:[{text:"",pad:0}]})}
           />
 
-        <code rows="20" style={{width:"100%",boxSizing:"border-box"}}/>
-        
-        <CodeMirror ref="editor" value={this.state.code}
-            onKeyDown={e=>console.log(e)}
-            onChange={()=>this.updateCode} 
-            options={options} />
+      <div className="paneContainer">
+        <SplitPane split="vertical" minSize={50} defaultSize={100}>
+          <div>
+            <CodeMirror ref="editor" value={this.state.code}
+              onKeyDown={e=>console.log(e)}
+              onChange={()=>this.updateCode} 
+              options={options} />
+          </div>
+          <div>
+              {this.state.output !== '' && <div>
+              
+              <pre className="prettyprint" contentEditable style={{width:"100%"}} rows="15">
+                {this.state.output}
+              </pre>
+            </div>}
+          </div>
+          </SplitPane>
+      </div>
 
-          {this.state.output !== '' && <div>
-            <h2>Boilerplate</h2>
-            
-            <pre className="prettyprint" contentEditable style={{width:"100%"}} rows="15">
-              {this.state.output}
-            </pre>
-          </div>}
+        
+
+          
           
       </div>
     );
