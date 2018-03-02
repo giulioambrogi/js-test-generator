@@ -8,6 +8,8 @@ import './App.css';
 import style from 'codemirror/lib/codemirror.css';
 import CodeMirror from 'react-codemirror'
 import SplitPane from 'react-split-pane'
+import Survey from './components/Survey';
+
 
 const options = {lineNumbers: false,indentWithTabs:true, autoSave:true,styleActiveLine: true,};
 
@@ -78,13 +80,11 @@ class App extends Component {
     //add last data to matrix 
     dataMatrix.push(data);
 
-    console.log("Data matrix has "+dataMatrix.length+ "trees")
-
     const lineSets = dataMatrix;//this.detectLineSets(lines);
     const trees = groupMultiple(lineSets);
     
     const output = trees.map(tree=>print(this.state.dialect, tree)).join("\n\n");
-    this.setState({output});
+    this.setState({output}, ()=>window.PR.prettyPrint());
 }
 example(){
   const newTests = "When I click here\n\tThen something bad happens\n\tAnd page should display confirm button";
@@ -109,14 +109,17 @@ clear(){
     return (
       <div className="App">
           <h1 className="title">BDD Boilerplate Generator</h1>
+          <h2>Write down the test cases - <span style={{color:"green"}}>generate</span> the code</h2>
           <Options 
-            generateEnabled={true}
+            generateEnabled={this.state.code.trim()!=""}
             onGenerate={this.generate.bind(this)} 
             onOptionsChange={undefined} 
             onClear={()=>this.clear()}
             onChangeDialect={(dialect)=>this.setState({dialect})}
             onExample={()=>this.example()}
           />
+
+          <p>Use the <strong>TAB</strong> to nest test cases</p>
 
       <div className="paneContainer">
         <SplitPane split="vertical" defaultSize="50%">
@@ -139,7 +142,8 @@ clear(){
           </SplitPane>
       </div>
           
-          
+      <Survey />
+
       </div>
     );
   }

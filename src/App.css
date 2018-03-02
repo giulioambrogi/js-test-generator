@@ -1,18 +1,38 @@
+@font-face {
+  font-family: superfamily;
+  src: url(/fonts/ostrich/ostrich-sans-black.woff);
+}
+@font-face {
+  font-family: regu;
+  src: url(/fonts/ostrich/ostrich-sans-regular.woff);
+}
+
 .App {
   text-align: left;
   padding:30px;
-  background:#28bce2
+
 }
 
 h1{
   margin: 0 auto;
   display: block;
   text-align: center;
-  color:#fff;
+  color:#1d1d1d;
+  font-size: 60px;
+  font-family: superfamily;
+}
+h2{
+  font-size: 30px;
+  font-family:regu;
+  text-align: center;
 }
 
-.padded{
-
+.Pane{
+  overflow:auto;
+}
+.CodeMirror{
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .padded input{
@@ -42,7 +62,7 @@ pre.prettyprint{
 }
 
 .options-container{
-  text-align: right;
+  text-align: left;
   padding-bottom: 20px;
   padding-top: 30px;
 }
@@ -50,26 +70,17 @@ pre.prettyprint{
   position: relative;
   height: 500px;
   background: #fff;
-  box-shadow: 2px 2px 51px gray;
+  box-shadow: 2px 2px 1px gray;
+  border:1px solid gray;
 }
 
 button, select, option{
-  cursor: pointer;
-  display: inline-block;
   
-  border:1px solid #fff;
-  margin-left: 10px;
-  box-sizing: border-box;
-  outline: none;
-  padding: 5px;
-  color:#fff;
-  border-radius: 1px;
-  background:transparent;
-
 }
 
 .Resizer {
   background: #000;
+  width: 10px;
   opacity: .2;
   z-index: 1;
   -moz-box-sizing: border-box;
@@ -100,10 +111,9 @@ button, select, option{
 }
 
 .Resizer.vertical {
-  width: 11px;
   margin: 0 -5px;
-  border-left: 5px solid rgba(255, 255, 255, 0);
-  border-right: 5px solid rgba(255, 255, 255, 0);
+  border-left: 3px solid rgba(255, 255, 255, 0);
+  border-right: 3px solid rgba(255, 255, 255, 0);
   cursor: col-resize;
 }
 

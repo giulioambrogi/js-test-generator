@@ -14,7 +14,7 @@ function mapChild(child){
 
         })\n\n`
     }
-    return `describe('${child.data().text}', ()=>{ ${child.childNodes().map(mapChild).join("")}})\n\n`    
+    return `describe('${child.data().text}', ()=>{\n\n ${child.childNodes().map(mapChild).join("")}})\n\n`    
 }
 function print(tree){
 
