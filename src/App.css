@@ -10,6 +10,7 @@
 .App {
   text-align: left;
   padding:30px;
+  font-size: 1rem;
 
 }
 
@@ -26,6 +27,11 @@ h2{
   font-family:regu;
   text-align: center;
 }
+h3{
+  font-size: 20px;
+  font-family:regu;
+  margin-bottom: 10px;
+}
 
 .Pane{
   overflow:auto;
@@ -41,16 +47,6 @@ h2{
   display: block;
 }
 
-input{
-  width:100%;
-  overflow: hidden;
-  outline:none;
-}
-input:focus{
-  background:#d5f7e5;
-  border: none !important;
-  box-shadow: none;
-}
 .CodeMirror-line:focus{
   background:red;
 }
@@ -61,11 +57,7 @@ pre.prettyprint{
   margin:0px !important;
 }
 
-.options-container{
-  text-align: left;
-  padding-bottom: 20px;
-  padding-top: 30px;
-}
+
 .paneContainer{
   position: relative;
   height: 500px;
@@ -126,4 +118,16 @@ cursor: not-allowed;
 }
 .Resizer.disabled:hover {
 border-color: transparent;
+}
+
+
+.smcx-widget.smcx-embed{
+  margin: 0 auto !important;
+  position: relative !important;
+  margin-bottom: 50px !important;
+}
+
+
+.smcx-iframe-container{
+  position: relative !important;
 }

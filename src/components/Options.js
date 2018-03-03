@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import Button from './Button';
 import styled from 'styled-components'
-
+import formElementStyle from './shared/StyledFormElement'
 const StyledOption = styled.div`
 
     button{
         margin-right:10px;
     }
+
 `
 const StyledSelect = styled.select`
-    box-shadow: 1px 1px 5px grey;
-    height: 25px;
+    ${formElementStyle()}
+    border-radius:0px !important;
+    appearence:none;
     -webkit-appearance: none;
-    display: inline-block;
-    border-radius: 0px;
-    padding: 5px 10px;
-    margin: 0;
-    border: 1px solid;
-    background: transparent;
+    -moz-appearance: none;
+    -webkit-border-radius: 0px;
+    padding-left:5px;
     float:right;
 `
 
@@ -46,10 +45,9 @@ class App extends Component {
         <div>
             <a href="/" style={{float:"right", marginTop:"5px", fontSize:"10px", color:"gray"}}
             onClick={e=>{
-                //console.log("gff")
                 e.preventDefault();
-                scrollTo(document.querySelector('html'), document.getElementById("survey").offsetTop -10, 400);
-               
+                const target = document.querySelector(".smcx-widget");
+                scrollTo(document.documentElement, target.offsetTop, 600);
             }}
             >Is your framework not in this list?</a>
         </div>
@@ -58,14 +56,15 @@ class App extends Component {
   }
 }
 
-const scrollTo = function(element, to, duration) {
-    if (duration < 0) return;
-    var difference = to - element.scrollTop,
-        perTick = difference / duration * 10;
+function scrollTo(element, to, duration) {
+    if (duration <= 0) return;
+    var difference = to - element.scrollTop;
+    var perTick = difference / duration * 10;
     setTimeout(function() {
         element.scrollTop = element.scrollTop + perTick;
         if (element.scrollTop === to) return;
         scrollTo(element, to, duration - 10);
-    },0);
-};
+    }, 10);
+}
+
 export default App;

@@ -1,7 +1,7 @@
 import dialectadapters from '../dialectadapters/index.js'
 
 
-export function print(adapter, tree){
+export function print(adapter, tree, options = {}){
     if(adapter == null || tree == null){
         return "Error";
     }
@@ -9,6 +9,6 @@ export function print(adapter, tree){
     if(selectedAdapter==null){
         throw "Can't find adapter "+adapter
     }
-    return dialectadapters[adapter].print(tree);
+    return dialectadapters[adapter].print(tree, options);
 }
 

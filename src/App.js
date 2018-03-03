@@ -8,6 +8,9 @@ import './App.css';
 import style from 'codemirror/lib/codemirror.css';
 import CodeMirror from 'react-codemirror'
 import SplitPane from 'react-split-pane'
+
+import OutputCode from './components/OutputCode'
+import Settings from './components/Settings'
 import Survey from './components/Survey';
 
 
@@ -22,7 +25,8 @@ class App extends Component {
       currentLine: 0,
       output:'',
       dialect:'jest',
-      ui:{}
+      ui:{},
+      settings: {}
     }
   }
 
@@ -40,7 +44,9 @@ class App extends Component {
 
 //update line color
 //
-
+  updateSettings(opt){
+    this.setState({settings:opt})
+  }
 
   generate(){
 
@@ -67,7 +73,6 @@ class App extends Component {
         if(pad > previousPad+1){
             cm.markText({line: i, ch: 0}, {line: i, ch: 200}, {css:"color:red"});
             this.setState({ui:{level:'danger', message:`wrong indentation at line ${i}, previous tab was ${previousPad}, instead ${pad} is too much`}})
-           
             return;
         }
 
@@ -82,9 +87,8 @@ class App extends Component {
 
     const lineSets = dataMatrix;//this.detectLineSets(lines);
     const trees = groupMultiple(lineSets);
-    
-    const output = trees.map(tree=>print(this.state.dialect, tree)).join("\n\n");
-    this.setState({output}, ()=>window.PR.prettyPrint());
+    const output = trees.map(tree=>print(this.state.dialect, tree, this.state.settings)).join("\n\n");
+    this.setState({output});
 }
 example(){
   const newTests = "When I click here\n\tThen something bad happens\n\tAnd page should display confirm button";
@@ -119,7 +123,9 @@ clear(){
             onExample={()=>this.example()}
           />
 
-          <p>Use the <strong>TAB</strong> to nest test cases</p>
+          <Settings onChange={(data)=>this.updateSettings(data)}/>
+
+          <p>Use the <strong>TAB</strong> key to nest test cases</p>
 
       <div className="paneContainer">
         <SplitPane split="vertical" defaultSize="50%">
@@ -131,17 +137,18 @@ clear(){
           </div>
           <div>
               {hasErrors && <div className={`alert ${this.state.ui.level}`}>{this.state.ui.message}</div>}
-            
+
+               <OutputCode code={this.state.output} />
               {this.state.output !== '' && <div>
-              
-              <pre className="prettyprint" contentEditable style={{width:"100%"}} rows="15">
-                {this.state.output}
-              </pre>
+             
             </div>}
           </div>
           </SplitPane>
       </div>
           
+      <br />
+      <br />
+      <br />
       <Survey />
 
       </div>
