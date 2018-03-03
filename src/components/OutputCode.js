@@ -22,15 +22,9 @@ const StyledOutput = styled.div`
 
 class App extends Component {
 
-  componentDidUpdate(){
-      console.log("Highlighting all");
-    Prism.highlightAll()
-  }
   
   render() {
 
-    var code = "const x = 2";
-    var html = Prism.highlight(this.props.code || "", Prism.languages.javascript);
     return (
     <StyledOutput>
         

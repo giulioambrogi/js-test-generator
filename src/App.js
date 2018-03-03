@@ -14,6 +14,7 @@ import Settings from './components/Settings'
 import Survey from './components/Survey';
 import Alert from './components/Alert';
 import {colors} from './components/shared/constants'
+const Prism = require('prismjs');
 
 const options = {lineNumbers: false,indentWithTabs:true, autoSave:true,styleActiveLine: true,};
 
@@ -100,7 +101,13 @@ class App extends Component {
       const lineSets = dataMatrix;//this.detectLineSets(lines);
       const trees = groupMultiple(lineSets);
       const output = trees.map(tree=>print(this.state.dialect, tree, this.state.settings)).join("\n\n");
-      this.setState({output});
+      this.setState({output, ui:{}}, 
+      ()=>{
+          //highlight
+        Prism.highlightAll()
+          
+
+      });
     }catch(err){
         this.setState({ui:{level:'danger', message:'Sorry, an unexpected error occurred, please try again.', line:0}});
     }
@@ -159,10 +166,7 @@ clear(){
           </div>
           </SplitPane>
       </div>
-          
-      <br />
-      <br />
-      <br />
+      <br /><br />
       <Survey />
 
       </div>
