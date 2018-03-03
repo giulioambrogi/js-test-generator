@@ -58,7 +58,11 @@ class App extends Component {
       if(this.state.ui.level === 'danger'){
         const i = this.state.ui.line;
         cm.markText({line: i, ch: 0}, {line: i, ch: 200}, {css:"color:black"});
+        
       }
+      const lines = document.querySelectorAll('.CodeMirror-line span');
+      lines[lines.length-1].focus()
+
   }
 
   generate(){
@@ -166,6 +170,7 @@ clear(){
           </div>
           </SplitPane>
       </div>
+      <p style={{textAlign:"right"}}>Developed by <a href="http://www.giulioambrogi.com">Giulio Ambrogi</a></p>
       <br /><br />
       <Survey />
 

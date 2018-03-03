@@ -29,7 +29,7 @@ class App extends Component {
     <StyledOutput>
         
 
-        <pre class="line-numbers language-javascript">
+        <pre className="line-numbers language-javascript">
             <code>
             {this.props.code}
             </code>
