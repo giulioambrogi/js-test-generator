@@ -10,7 +10,7 @@ export default ()=>{
         line-height: 30px;
         box-sizing: border-box;
         outline: none;
-        min-width: 150px;
+        min-width: 90px;
         border-radius: 1px;
         text-align:left;
         font-family: superfamily;
