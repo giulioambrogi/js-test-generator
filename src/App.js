@@ -14,6 +14,7 @@ import Settings from './components/Settings'
 import Survey from './components/Survey';
 import Alert from './components/Alert';
 import {colors} from './components/shared/constants'
+import MainContent from './components/shared/MainContent'
 const Prism = require('prismjs');
 
 const options = {lineNumbers: false,indentWithTabs:true, autoSave:true,styleActiveLine: true,};
@@ -33,10 +34,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    //this.generate();
-    window.cm = this.refs.editor
-
-    document.querySelector('.Pane1').addEventListener('click',()=>{ this.onLeftPanelClick()})
+      document.querySelector('.Pane1').addEventListener('click',()=>{ this.onLeftPanelClick()})
   }
 
   updateCode(newCode) {
@@ -60,8 +58,8 @@ class App extends Component {
         cm.markText({line: i, ch: 0}, {line: i, ch: 200}, {css:"color:black"});
         
       }
-      const lines = document.querySelectorAll('.CodeMirror-line span');
-      lines[lines.length-1].focus()
+      //focus
+      this.refs.editor.focus()
 
   }
 
@@ -139,40 +137,43 @@ clear(){
     return (
       <div className="App">
           <h1 className="title">BDD Boilerplate Generator</h1>
-          <h2>Write down the test cases - <span style={{color:"green"}}>generate</span> the code</h2>
-          <Options 
-            generateEnabled={this.state.code.trim()!=""}
-            onGenerate={this.generate.bind(this)} 
-            onOptionsChange={undefined} 
-            onClear={()=>this.clear()}
-            onChangeDialect={(dialect)=>this.setState({dialect})}
-            onExample={()=>this.example()}
-          />
+          <h2>Focus on the test cases, <span style={{color:"green"}}>generate</span> the code.  </h2>
+        <MainContent>
+              
+            <Options 
+                generateEnabled={this.state.code.trim()!=""}
+                onGenerate={this.generate.bind(this)} 
+                onOptionsChange={undefined} 
+                onClear={()=>this.clear()}
+                onChangeDialect={(dialect)=>this.setState({dialect})}
+                onExample={()=>this.example()}
+              />
 
-          <Settings onChange={(data)=>this.updateSettings(data)}/>
+              <Settings onChange={(data)=>this.updateSettings(data)}/>
 
-          <p>Use the <strong>TAB</strong> key to nest test cases</p>
+              <p>Use the <strong>TAB</strong> key to nest test cases</p>
 
-      <div className="paneContainer">
-        <SplitPane split="vertical" defaultSize="50%">
-          <div>
-            <CodeMirror ref="editor" value={this.state.code}
-              onKeyDown={e=>console.log(e)}
-              onChange={(val)=>this.updateCode(val)} 
-              options={options} />
+          <div className="paneContainer">
+            <SplitPane split="vertical" defaultSize="50%">
+              <div>
+                <CodeMirror ref="editor" value={this.state.code}
+                  onKeyDown={e=>console.log(e)}
+                  onChange={(val)=>this.updateCode(val)} 
+                  options={options} />
+              </div>
+              <div>
+                  {hasErrors && <Alert level={this.state.ui.level} text={this.state.ui.message}/>}
+
+                  {!hasErrors && 
+                    <OutputCode code={this.state.output} />
+                  } 
+              </div>
+              </SplitPane>
           </div>
-          <div>
-              {hasErrors && <Alert level={this.state.ui.level} text={this.state.ui.message}/>}
-
-              {!hasErrors && 
-                <OutputCode code={this.state.output} />
-              } 
-          </div>
-          </SplitPane>
-      </div>
-      <p style={{textAlign:"right"}}>Developed by <a href="http://www.giulioambrogi.com">Giulio Ambrogi</a></p>
-      <br /><br />
-      <Survey />
+          <p style={{textAlign:"right"}}>Developed by <a href="http://www.giulioambrogi.com">Giulio Ambrogi</a></p>
+          <br /><br />
+          <Survey />
+        </MainContent>
 
       </div>
     );

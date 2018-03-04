@@ -1,10 +1,10 @@
 @font-face {
   font-family: superfamily;
-  src: url(/fonts/ostrich/ostrich-sans-black.woff);
+  src: url(./fonts/ostrich/ostrich-sans-black.woff);
 }
 @font-face {
   font-family: regu;
-  src: url(/fonts/ostrich/ostrich-sans-regular.woff);
+  src: url(./fonts/ostrich/ostrich-sans-regular.woff);
 }
 
 .App {

@@ -16,6 +16,8 @@ export default ()=>{
         font-family: superfamily;
         font-size: 16px;
         background:#fff;
+        -webkit-font-smoothing: antialiased;
+        font-smooth: never;
 
         &:hover{
             border-color:gray;

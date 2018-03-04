@@ -8,6 +8,7 @@ const StyledButton = styled.button`
     ${formElementStyle()}
     
     text-transform:uppercase;
+
    
 
     
