@@ -29,7 +29,10 @@ class App extends Component {
       output:'',
       dialect:'jest',
       ui:{},
-      settings: {}
+      settings: {
+        quotes:'singlequote',
+        negatives: false
+      }
     }
   }
 
@@ -47,7 +50,8 @@ class App extends Component {
 //update line color
 //
   updateSettings(opt){
-    this.setState({settings:opt})
+    const settings = Object.assign(this.state.settings, opt);
+    this.setState({settings})
   }
 
   onLeftPanelClick(){

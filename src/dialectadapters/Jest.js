@@ -1,4 +1,6 @@
 import beautify from 'js-beautify';
+import quotes from '../lib/quotes'
+
 window.beautify = beautify;
 let store;
 
@@ -10,12 +12,14 @@ opts.space_in_empty_paren = 12;
 let _options = {}; //printer options (e.g. negatives)
 
 function mapChild(child){
+
+    const selectedQuote =  quotes[_options.quotes] || "'";
     if(child.childNodes().length==0){
-        return `it('${child.data().text}', ()=>{
+        return `it(${selectedQuote}${child.data().text}${selectedQuote}, ()=>{
                 ${_options.negatives? `throw 'Not Implemented'`: ''}
         })\n\n`
     }
-    return `describe('${child.data().text}', ()=>{\n\n ${child.childNodes().map(mapChild).join("")}})\n\n`    
+    return `describe(${selectedQuote}${child.data().text}${selectedQuote}, ()=>{\n\n ${child.childNodes().map(mapChild).join("")}})\n\n`    
 }
 function print(tree, options = {}){
     _options = options;
