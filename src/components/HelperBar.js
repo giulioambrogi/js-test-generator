@@ -52,7 +52,7 @@ const StyledClipboardCopy = styled.div`
   fill: black;
 
   &:hover{
-    transition: all 0.6s;
+    transition: all 0.3s;
     fill: #5dc55d;
   }
 

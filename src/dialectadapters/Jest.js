@@ -18,7 +18,7 @@ function mapChild(child, options = {}){
                 ${options.negatives? `throw 'Not Implemented'`: ''}
         })\n\n`
     }
-    return `describe(${selectedQuote}${child.data().text}${selectedQuote}, ()=>{\n\n ${child.childNodes().map(mapChild).join("")}})\n\n`    
+    return `describe(${selectedQuote}${child.data().text}${selectedQuote}, ()=>{\n\n ${child.childNodes().map(mapChild, options).join("")}})\n\n`    
 }
 function print(tree, options = {}){
     let text = ""
