@@ -176,7 +176,6 @@ clear(){
           </div>
           <p style={{textAlign:"right"}}>Developed by <a href="http://www.giulioambrogi.com">Giulio Ambrogi</a></p>
           <br /><br />
-          <Survey />
         </MainContent>
 
       </div>
