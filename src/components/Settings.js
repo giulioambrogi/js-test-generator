@@ -13,21 +13,24 @@ class Settings extends Component {
             {/* <h3>Settings</h3> */}
             <form>
                     
+            <div>
+                    
+                    <Label htmlFor="quotes">Quotes: </Label>
+                   <select name="quotes" onChange={(e)=>{this.props.onChange({quotes:e.target.value})}}>
+                       <option value="backtick">backticks</option>
+                       <option value="singlequote">single quotes</option>
+                       <option value="doublequote">double quotes</option>
+                   </select>
+                   </div>
+
+
                     <div>
-                    <Label htmlFor="negatives_cb">Generate test failures: </Label>
+                    <Label htmlFor="negatives_cb">Add test failures: </Label>
                         <StyledCheckbox type="checkbox" name="negatives-cb" id="negatives_cb" onChange={(e)=>{this.change(e)}}/>
                     
                     </div>
 
-                     <div>
-                    
-                     <Label htmlFor="quotes">Quotes: </Label>
-                    <select name="quotes" onChange={(e)=>{this.props.onChange({quotes:e.target.value})}}>
-                        <option value="backtick">backticks</option>
-                        <option value="singlequote">single quotes</option>
-                        <option value="doublequote">double quotes</option>
-                    </select>
-                    </div>
+                   
 
 
             
