@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
+import copy from 'copy-to-clipboard';
 
 
 const Prism = require('prismjs');
@@ -22,16 +23,21 @@ const StyledOutput = styled.div`
 
 class App extends Component {
 
+  copyToClipboard(){
+      console.log('copied')
+      copy(this.props.code);
+  }
   
   render() {
 
+    const {code} = this.props;
     return (
     <StyledOutput>
         
-
+        <button onClick={()=>this.copyToClipboard(code)}>Copy</button>
         <pre className="line-numbers language-javascript">
             <code>
-            {this.props.code}
+            {code}
             </code>
         </pre>
 

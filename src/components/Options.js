@@ -30,26 +30,6 @@ class App extends Component {
             <Button className="generate" primary onClick={this.props.onGenerate} disabled={!this.props.generateEnabled}>Generate</Button>
             <Button onClick={this.props.onClear}>Clear</Button>
             <Button onClick={this.props.onExample}>Example</Button>
-            <StyledSelect>
-                <optgroup label="Javascript">
-                    <option value="mocha">Mocha</option>
-                    <option value="jasmine">Jasmine</option>
-                    <option value="jest">Jest</option>
-                </optgroup>
-                <optgroup>
-                        <option disabled>And many more coming soon...</option>
-                </optgroup>
-                
-            </StyledSelect>
-        </div>
-        <div>
-            <a href="/" style={{float:"right", marginTop:"5px", fontSize:"10px", color:"gray"}}
-            onClick={e=>{
-                e.preventDefault();
-                const target = document.querySelector(".smcx-widget");
-                scrollTo(document.documentElement, target.offsetTop, 600);
-            }}
-            >Is your framework not in this list?</a>
         </div>
     </StyledOption>
     );

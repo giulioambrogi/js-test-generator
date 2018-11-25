@@ -30,7 +30,7 @@ class App extends Component {
       dialect:'jest',
       ui:{},
       settings: {
-        quotes:'singlequote',
+        quotes:'backtick',
         negatives: false
       }
     }
@@ -140,7 +140,7 @@ clear(){
     const hasErrors = this.state.ui.level === 'danger';
     return (
       <div className="App">
-          <h1 className="title">BDD Boilerplate Generator</h1>
+          <h1 className="title">JS Test Generator</h1>
           <h2>Focus on the test cases, <span style={{color:"green"}}>generate</span> the code.  </h2>
         <MainContent>
               
