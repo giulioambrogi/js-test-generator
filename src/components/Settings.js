@@ -9,8 +9,8 @@ class Settings extends Component {
     }
 
     render(){
-        return <div>
-            <h3>Settings</h3>
+        return <StyledSettings>
+            {/* <h3>Settings</h3> */}
             <form>
                     
                     <div>
@@ -32,10 +32,27 @@ class Settings extends Component {
 
             
             </form>
-        </div>
+        </StyledSettings>
     }
 
 }
+
+const StyledSettings = styled.div`
+    background: #f1f0f0;
+    padding: 10px;
+    margin-top:20px;
+    display:inline-block;
+    border-radius:3px;
+
+    h1,h2,h3{
+        margin-top:0px;
+    }
+
+    select, input{
+        display: inline-block;
+        border-radius:0px;
+    }
+`
 const Label = styled.label`
     cursor:pointer;
 `
