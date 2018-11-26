@@ -131,3 +131,7 @@ border-color: transparent;
 .smcx-iframe-container{
   position: relative !important;
 }
+
+.Pane1 .ReactCodeMirror{
+  border-left: 1px solid gray;
+}

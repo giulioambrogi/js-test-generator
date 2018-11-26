@@ -127,7 +127,7 @@ class App extends Component {
     }
   }
   example() {
-    const newTests = "When I click here\n\tThen something bad happens\n\tAnd page should display confirm button";
+    const newTests = "When I click on the confirm button\n\tAnd the API returns 200\n\t\tSuccess notification is displayed\n\tAnd the API returns an error\n\t\tError notification is diplayed";
 
     this.refs.editor.codeMirror.setValue(newTests);
     this.setState({
