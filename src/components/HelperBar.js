@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import copy from 'copy-to-clipboard';
 import CopyIcon from './icons/Copy';
-
+import { show } from '../utils/notifications'
 
 
 class Helpers extends Component {
 
   copyToClipboard(){
       copy(this.props.code);
+      show('🦄 Copied!')
+      
+
   }
   
   render() {

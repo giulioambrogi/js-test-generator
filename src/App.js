@@ -17,6 +17,9 @@ import { colors } from './components/shared/constants'
 import MainContent from './components/shared/MainContent'
 import HelperBar from './components/HelperBar'
 import Footer from './components/Footer'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { show } from './utils/notifications';
 
 const Prism = require('prismjs');
 
@@ -59,9 +62,10 @@ class App extends Component {
 
   onLeftPanelClick() {
     const cm = this.refs.editor.codeMirror;
+    const {ui} = this.state;
     //unmark
-    if (this.state.ui.level === 'danger') {
-      const i = this.state.ui.line;
+    if (ui.level === 'danger') {
+      const i = ui.line;
       cm.markText({ line: i, ch: 0 }, { line: i, ch: 200 }, { css: "color:black" });
 
     }
@@ -72,7 +76,7 @@ class App extends Component {
 
   generate() {
     try {
-
+      const {dialect, settings} = this.state;
       const cm = this.refs.editor.codeMirror;
       let dataMatrix = []; // list of list of lines (groupped by root, aka 0 index)
       let data = [];
@@ -109,11 +113,12 @@ class App extends Component {
 
       const lineSets = dataMatrix;//this.detectLineSets(lines);
       const trees = groupMultiple(lineSets);
-      const output = trees.map(tree => print(this.state.dialect, tree, this.state.settings)).join("\n\n");
+      const output = trees.map(tree => print(dialect, tree, settings)).join("\n\n");
       this.setState({ output, ui: {} },
         () => {
           //highlight
           Prism.highlightAll()
+          show('🦄  Generated!')
 
 
         });
@@ -140,16 +145,29 @@ class App extends Component {
   }
 
   render() {
-    const hasErrors = this.state.ui.level === 'danger';
+    const {code, output, ui} = this.state;
+    const hasErrors = ui.level === 'danger';
+
     return (
       <React.Fragment>
+        <ToastContainer 
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover
+        />
         <div className="App">
           <h1 className="title">JS Test Generator</h1>
           <h2>Focus on the test cases, <span style={{ color: "green" }}>generate</span> the code.  </h2>
           <MainContent>
 
             <Options
-              generateEnabled={this.state.code.trim() != ""}
+              generateEnabled={code.trim() != ""}
               onGenerate={this.generate.bind(this)}
               onOptionsChange={undefined}
               onClear={() => this.clear()}
@@ -159,20 +177,20 @@ class App extends Component {
 
             <Settings onChange={(data) => this.updateSettings(data)} />
 
-            <HelperBar />
+            <HelperBar code={output} />
             <div className="paneContainer">
               <SplitPane split="vertical" defaultSize="50%">
                 <div>
-                  <CodeMirror ref="editor" value={this.state.code}
+                  <CodeMirror ref="editor" value={code}
                     onKeyDown={e => console.log(e)}
                     onChange={(val) => this.updateCode(val)}
                     options={options} />
                 </div>
                 <div>
-                  {hasErrors && <Alert level={this.state.ui.level} text={this.state.ui.message} />}
+                  {hasErrors && <Alert level={ui.level} text={ui.message} />}
 
                   {!hasErrors &&
-                    <OutputCode code={this.state.output} />
+                    <OutputCode code={output} />
                   }
                 </div>
               </SplitPane>
