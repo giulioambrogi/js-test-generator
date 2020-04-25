@@ -1,1 +1,5 @@
-npm run build && rm -rf ../../giulioambrogi.github.io/bdd-boilerplate-generator/** && cp -a build/ ../../giulioambrogi.github.io/bdd-boilerplate-generator/
+# JS Test Generator
+
+A tool to help you in writing better tests.
+
+See it in action: http://www.jstestgenerator.com.s3-website-eu-west-1.amazonaws.com/.
